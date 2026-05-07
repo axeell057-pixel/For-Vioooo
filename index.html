@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Vio // The Unfolding</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Montserrat:wght@300;500&family=Shadows+Into+Light&family=Indie+Flower&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ===== AMPLOP ===== -->
+    <div id="envelope-wrapper" onclick="openEnvelope()">
+        <div class="envelope">
+            <div class="flap"></div>
+            <div class="pocket"></div>
+            <div class="envelope-text">Klik Duluu Yaa ♡</div>
+        </div>
+    </div>
+
+    <!-- ===== SOUND EFFECTS ===== -->
+    <audio id="sfx-paper" src="https://www.soundjay.com/misc/sounds/paper-crunch-1.mp3"></audio>
+    <audio id="sfx-open" src="https://www.soundjay.com/misc/sounds/envelope-tearing-1.mp3"></audio>
+
+    <!-- ===== KONTEN UTAMA ===== -->
+    <div class="container">
+
+        <!-- Kartu foto yang dipinned -->
+        <div class="pinned-card paper fixed-layer">
+            <div class="pin"></div>
+            <img src="viooo.jpeg" alt="Special">
+            <p class="caption">Locked memory.</p>
+        </div>
+
+        <!-- Foto bunga dekorasi mini (bisa lo ganti srcnya) -->
+        <div class="paper polaroid-mini paper-layer" style="top: 72%; left: 38%;">
+            <div class="tape" style="background: rgba(255,200,200,0.35);"></div>
+            <!-- Ganti src di bawah dengan foto bunga lo -->
+            <img src="mawar.jpeg" alt="Bunga 1">
+            <p class="caption">🌸</p>
+        </div>
+
+        <div class="paper polaroid-mini paper-layer" style="top: 68%; left: 52%;">
+            <div class="tape" style="background: rgba(200,230,255,0.35);"></div>
+            <!-- Ganti src di bawah dengan foto bunga lo -->
+            <img src="mawar.jpeg" alt="Bunga 2">
+            <p class="caption">🌼</p>
+        </div>
+
+        <!-- Catatan-catatan -->
+        <div class="paper note type-1 lined paper-layer" style="top: 20%; left: 15%;">
+            <div class="tape"></div>
+            <h2>Hi, Vio.</h2>
+            <p>Aku nggak tau harus mulai dari mana. Tapi daripada nggak sama sekali, ya udah , Kubuatin ini.</p>
+        </div>
+
+        <div class="paper note type-2 grid paper-layer" style="top: 50%; left: 20%;">
+            <div class="tape"></div>
+            <h2>Well...</h2>
+            <p>Senyum kamu itu nggak adil. Lesung pipinya juga. Kayak udah tau efeknya tapi tetep dilakuin aja.</p>
+        </div>
+
+        <div class="paper polaroid-drag paper-layer" style="top: 15%; left: 45%;">
+            <div class="tape" style="background: rgba(173, 216, 230, 0.3);"></div>
+            <img src="viooo.jpeg" alt="Moment">
+            <p class="caption">Random Pict of You.</p>
+        </div>
+
+        <div class="paper note type-3 paper-layer" style="top: 45%; left: 50%;">
+            <div class="tape"></div>
+            <h2>Just a note</h2>
+            <p>Yang bikin aku suka sama kamu tuh justru karena kamu nggak dibuat-buat. Ngobrol sama kamu tuh berasa nyaman banget . kayak nggak perlu jaga image atau pura-pura.</p>
+        </div>
+
+        <div class="paper note type-1 paper-layer" style="top: 10%; left: 70%; border: 1px dashed #ccc;">
+            <div class="tape"></div>
+            <h2>A Promise.</h2>
+            <p>Aku nggak kemana-mana kok. Mau kamu lagi seneng, lagi galau, atau lagi nggak tau mau cerita ke siapa , aku di sini. Beneran, bukan basa-basi.</p>
+        </div>
+
+        <div class="paper note type-2 paper-layer" style="top: 60%; left: 75%;">
+            <div class="tape"></div>
+            <h2>One more thing</h2>
+            <p>Ini agak nekat sih. Tapi kalau nggak sekarang, kapan lagi. Kamu spesial banget, Vio . dan aku nggak nyesel sama sekali nulis ini.</p>
+            <p class="sign">— Axell</p>
+        </div>
+
+        <!-- Dekorasi -->
+        <div class="paper deco deco-layer" style="top: 70%; left: 10%;"><img src="https://cdn-icons-png.flaticon.com/512/590/590448.png" width="60" alt="Flower"></div>
+        <div class="paper deco deco-layer" style="top: 10%; left: 30%;"><img src="https://cdn-icons-png.flaticon.com/512/2550/2550223.png" width="50" alt="Heart"></div>
+        <div class="paper deco deco-layer" style="top: 80%; left: 60%;"><img src="https://cdn-icons-png.flaticon.com/512/1045/1045232.png" width="70" alt="Leaf"></div>
+        <div class="paper deco deco-layer" style="top: 30%; left: 5%;"><img src="https://cdn-icons-png.flaticon.com/512/2913/2913520.png" width="40" alt="Star"></div>
+        <div class="paper deco deco-layer" style="top: 5%; left: 80%;"><img src="https://cdn-icons-png.flaticon.com/512/1045/1045230.png" width="60" alt="Dried Flower"></div>
+        <div class="paper deco deco-layer" style="top: 50%; left: 90%;"><img src="https://cdn-icons-png.flaticon.com/512/1045/1045244.png" width="50" alt="Small Leaf"></div>
+
+    </div>
+
+    <!-- ===== MUSIC PLAYER ===== -->
+    <div class="music-player" id="musicPlayer">
+        <div class="album-art" id="albumArt">♪</div>
+        <div class="track-info">
+            <!-- Ganti teks di bawah sesuai nama lagu & artis lo -->
+            <span class="track-name">Memories For Vioo</span>
+            <span class="track-artist">seadanyaa ajaa yaa</span>
+        </div>
+        <!-- Ganti "NAMA_FILE_LAGU.mp3" dengan nama file lagu lo -->
+        <audio id="myAudio">
+            <source src="lagu.mp3" type="audio/mpeg">
+        </audio>
+        <button class="play-btn" id="playBtn" onclick="togglePlay()">▶</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

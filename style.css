@@ -1,0 +1,350 @@
+/* ============================================
+   VARIABLES & RESET
+   ============================================ */
+:root {
+    --bg-pink: #fce8ec;          /* pink kalem utama */
+    --bg-pink-2: #f9d8df;        /* pink sedikit lebih gelap */
+    --accent-pink: #f4b8c3;      /* aksen */
+    --paper-cream: #fdfcf0;
+    --text-dark: #3e3e3e;
+    --pin-red: #e53935;
+}
+
+body {
+    background-color: var(--bg-pink);
+    background-image:
+        radial-gradient(circle at 15% 15%, #fff5f7 0%, transparent 40%),
+        radial-gradient(circle at 85% 80%, #fde0e6 0%, transparent 35%),
+        url('https://www.transparenttextures.com/patterns/handmade-paper.png');
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+    perspective: 1200px;
+}
+
+
+/* ============================================
+   AMPLOP (ENVELOPE)
+   ============================================ */
+#envelope-wrapper {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-pink);
+    background-image:
+        radial-gradient(circle at 20% 20%, #fff5f7 0%, transparent 40%),
+        url('https://www.transparenttextures.com/patterns/handmade-paper.png');
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.8s ease, transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+#envelope-wrapper.open {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(1.5) translateY(-30%);
+}
+
+.envelope {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background: var(--bg-pink-2);
+    box-shadow: 0 20px 60px rgba(200, 100, 120, 0.15);
+}
+
+.flap {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-top: 120px solid var(--accent-pink);
+    transform-origin: top center;
+    transition: transform 0.7s ease;
+    z-index: 3;
+}
+
+#envelope-wrapper.open .flap {
+    transform: rotateX(180deg);
+}
+
+.pocket {
+    position: absolute;
+    bottom: 0;
+    width: 300px;
+    height: 120px;
+    background: var(--bg-pink-2);
+    z-index: 4;
+}
+
+.envelope-text {
+    position: absolute;
+    bottom: 35px;
+    width: 100%;
+    text-align: center;
+    font-family: 'Caveat', cursive;
+    font-size: 1.6rem;
+    color: #a07080;
+    z-index: 5;
+    letter-spacing: 0.5px;
+}
+
+
+/* ============================================
+   KERTAS & CATATAN
+   ============================================ */
+.paper {
+    position: absolute;
+    cursor: grab;
+    user-select: none;
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+.paper:active {
+    cursor: grabbing;
+}
+
+.paper.loaded {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.8s ease, transform 0.9s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+}
+
+/* Ukuran & style dasar catatan */
+.note {
+    width: 280px;
+    padding: 40px 25px 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.type-1 { background: var(--paper-cream); }
+.type-2 { background: #fff9f9; border-bottom: 3px solid #fce4ec; }
+.type-3 { background: #e3f2fd; }
+
+.lined {
+    background-image: linear-gradient(#e1d9c1 1px, transparent 1px);
+    background-size: 100% 30px;
+    line-height: 30px;
+}
+
+.grid {
+    background-image:
+        linear-gradient(rgba(171, 206, 212, 0.3) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(171, 206, 212, 0.3) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* Polaroid */
+.polaroid-drag {
+    background: #fff;
+    padding: 12px 12px 50px 12px;
+    width: 240px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.07);
+}
+
+.polaroid-drag img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* Kartu pinned */
+.pinned-card {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    width: 240px;
+    background: #fff;
+    padding: 12px 12px 50px 12px;
+    transform: rotate(5deg) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+}
+
+/* Foto dalam pinned-card sama ukurannya kayak polaroid */
+.pinned-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* Polaroid mini buat foto bunga dekorasi */
+.polaroid-mini {
+    background: #fff;
+    padding: 8px 8px 36px 8px;
+    width: 130px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+}
+
+.polaroid-mini img {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+}
+
+/* Pin merah */
+.pin {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 24px;
+    background: radial-gradient(circle at 30% 30%, #ff5252, var(--pin-red));
+    border-radius: 50%;
+    z-index: 1001;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+/* Selotip */
+.tape {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(2px);
+}
+
+/* Tanda tangan */
+.sign {
+    text-align: right;
+    font-family: 'Caveat', cursive;
+    font-size: 1.4rem;
+    margin-top: 10px;
+}
+
+
+/* ============================================
+   LAYERING (Z-INDEX)
+   ============================================ */
+.deco-layer  { z-index: 10; }
+.paper-layer { z-index: 100; }
+.fixed-layer { z-index: 1000; }
+
+
+/* ============================================
+   TIPOGRAFI
+   ============================================ */
+h2 {
+    font-family: 'Caveat', cursive;
+    font-size: 2rem;
+    color: var(--text-dark);
+    margin: 0 0 8px;
+}
+
+p {
+    font-family: 'Indie Flower', cursive;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.caption {
+    font-family: 'Shadows Into Light', cursive;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #999;
+}
+
+
+/* ============================================
+   MUSIC PLAYER
+   ============================================ */
+.music-player {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 10px 18px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 2000;
+    box-shadow: 0 6px 20px rgba(200, 100, 120, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Ikon note musik */
+.album-art {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--accent-pink), var(--bg-pink-2));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: #c06070;
+    animation: spin 4s linear infinite;
+    animation-play-state: paused;
+}
+
+.music-player.playing .album-art {
+    animation-play-state: running;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+.track-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.track-name {
+    font-family: 'Caveat', cursive;
+    font-size: 1rem;
+    color: var(--text-dark);
+    line-height: 1;
+}
+
+.track-artist {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    color: #aaa;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+/* Tombol play/pause */
+.play-btn {
+    border: none;
+    background: linear-gradient(135deg, var(--accent-pink), #f09aaa);
+    color: #fff;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 8px rgba(200, 100, 120, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    padding: 0;
+}
+
+.play-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 14px rgba(200, 100, 120, 0.35);
+}
+
+.play-btn:active {
+    transform: scale(0.95);
+}
