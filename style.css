@@ -16,9 +16,9 @@ body {
         radial-gradient(circle at 15% 15%, #fff5f7 0%, transparent 40%),
         radial-gradient(circle at 85% 80%, #fde0e6 0%, transparent 35%),
         url('https://www.transparenttextures.com/patterns/handmade-paper.png');
-    height: 100vh;
+   min-height: 100vh;
     width: 100vw;
-    overflow: hidden;
+    overflow: auto;
     font-family: 'Montserrat', sans-serif;
     perspective: 1200px;
 }
@@ -602,3 +602,8 @@ p {
     font-size: 1.1rem;
     cursor: pointer;
     box-shadow: 0 4px 14px rgba(200, 100, 120, 0.25);
+.container {
+    width: 200vw;
+    height: 200vh;
+    position: relative;
+}
