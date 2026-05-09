@@ -348,3 +348,61 @@ p {
 .play-btn:active {
     transform: scale(0.95);
 }
+
+/* Loading Screen */
+#loading-screen {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-pink);
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    transition: opacity 0.8s ease;
+}
+
+#loading-screen.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-flower {
+    font-size: 2.5rem;
+    animation: bloom 1.5s ease infinite alternate;
+}
+
+@keyframes bloom {
+    from { transform: scale(0.8); opacity: 0.5; }
+    to   { transform: scale(1.2); opacity: 1; }
+}
+
+.loading-text {
+    font-family: 'Caveat', cursive;
+    font-size: 1.4rem;
+    color: #b08090;
+    letter-spacing: 1px;
+}
+
+/* Hover effect catatan */
+.note:hover {
+    box-shadow: 0 16px 40px rgba(200, 100, 120, 0.15);
+    filter: brightness(1.02);
+    transition: box-shadow 0.3s ease, filter 0.3s ease;
+}
+
+/* Petals jatuh */
+.petal {
+    position: fixed;
+    pointer-events: none;
+    font-size: 1.2rem;
+    opacity: 0;
+    animation: petalFall linear infinite;
+    z-index: 5;
+}
+
+@keyframes petalFall {
+    0%   { transform: translateY(-40px) rotate(0deg); opacity: 0.6; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
