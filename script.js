@@ -64,8 +64,8 @@ class DraggablePaper {
         window.addEventListener('mouseup', onEnd);
 
         // Touch events
-        this.el.addEventListener('touchstart', onStart, { passive: false });
-        window.addEventListener('touchmove', onMove, { passive: false });
+        this.el.addEventListener('touchstart', onStart, { passive: true });
+        window.addEventListener('touchmove', onMove, { passive: true });
         window.addEventListener('touchend', onEnd);
     }
 
