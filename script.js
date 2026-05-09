@@ -25,7 +25,7 @@ class DraggablePaper {
 
             this.isDragging = true;
 
-            // Naikin z-index biar kertas yang diambil muncul di atas
+            // z index
             if (this.el.classList.contains('paper-layer')) {
                 this.el.style.zIndex = currentPaperZ++;
             }
