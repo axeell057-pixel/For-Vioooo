@@ -7,13 +7,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Montserrat:wght@300;500&family=Shadows+Into+Light&family=Indie+Flower&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-
+<body> 
+    
     <div id="loading-screen">
     <div class="loading-flower">🌸</div>
     <p class="loading-text">something for you...</p>
 </div>
-
+    
+<div id="vault-overlay" onclick="closeVault()">
+    <div class="vault-modal" onclick="event.stopPropagation()">
+        <button class="vault-close" onclick="closeVault()">✕</button>
+        <div class="vault-header">
+            <div class="vault-lock-icon">🔒</div>
+            <h2 class="vault-title">Our Memories</h2>
+            <p class="vault-subtitle">tempat kecil buat kita.</p>
+        </div>
+        <div id="vault-password-screen">
+            <p class="vault-hint">masukkan kode rahasia</p>
+            <input type="password" id="vault-input" placeholder="••••••••" maxlength="20"
+                onkeydown="if(event.key==='Enter') checkPassword()">
+            <p id="vault-error" class="vault-error"></p>
+            <button class="vault-btn" onclick="checkPassword()">buka ✦</button>
+        </div>
+        <div id="vault-content">
+            <div class="vault-empty">
+                <div class="vault-empty-icon">🔐</div>
+                <p class="vault-empty-text">kenangan pertama kita<br>belum ada di sini.</p>
+                <p class="vault-empty-sub">tapi nanti pasti ada. 🌸</p>
+            </div>
+        </div>
+    </div>
+</div>
     <!-- ===== AMPLOP ===== -->
     <div id="envelope-wrapper" onclick="openEnvelope()">
         <div class="envelope">
@@ -101,7 +125,10 @@
 <div class="paper deco deco-layer" style="top: 55%; left: 3%;"><img src="https://cdn-icons-png.flaticon.com/512/3069/3069172.png" width="40" alt="Rainbow"></div>
 <div class="paper deco deco-layer" style="top: 88%; left: 80%;"><img src="https://cdn-icons-png.flaticon.com/512/2913/2913461.png" width="45" alt="Cherry"></div>
 <div class="paper deco deco-layer" style="top: 35%; left: 88%;"><img src="https://cdn-icons-png.flaticon.com/512/4213/4213958.png" width="40" alt="Candy"></div>
-
+<div id="vault-btn" onclick="openVault()">
+    <span class="vault-btn-lock">🔒</span>
+    <span class="vault-btn-text">Our Memories</span>
+</div>
     </div>
 
     <!-- ===== MUSIC PLAYER ===== -->
