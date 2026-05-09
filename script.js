@@ -87,6 +87,7 @@ function openEnvelope() {
 
     const wrapper = document.getElementById('envelope-wrapper');
     wrapper.classList.add('open');
+    startPetals();
 
     // Munculkan semua kertas & dekorasi secara bertahap setelah amplop mulai terbuka
     setTimeout(() => {
@@ -118,4 +119,30 @@ function togglePlay() {
         player.classList.remove('playing');
         btn.textContent = '▶';
     }
+}
+
+// Loading screen
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        document.getElementById('loading-screen').classList.add('hide');
+    }, 1800);
+});
+
+// Petals jatuh (mulai setelah amplop dibuka)
+function startPetals() {
+    const petals = ['🌸', '🌷', '✿', '❀'];
+    function spawnPetal() {
+        const p = document.createElement('div');
+        p.classList.add('petal');
+        p.textContent = petals[Math.floor(Math.random() * petals.length)];
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.fontSize = (0.7 + Math.random() * 0.8) + 'rem';
+        const dur = 7 + Math.random() * 8;
+        p.style.animationDuration = dur + 's';
+        p.style.animationDelay = Math.random() * 3 + 's';
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), (dur + 4) * 1000);
+    }
+    setInterval(spawnPetal, 1000);
+    for (let i = 0; i < 5; i++) spawnPetal();
 }
