@@ -98,6 +98,9 @@ function openEnvelope() {
                 new DraggablePaper(el);
             }, index * 120); // muncul satu-satu
         });
+       setTimeout(() => {
+                document.getElementById('vault-btn').classList.add('visible');
+            }, allItems.length * 120 + 400);
     }, 600);
 }
 
@@ -145,4 +148,59 @@ function startPetals() {
     }
     setInterval(spawnPetal, 1000);
     for (let i = 0; i < 5; i++) spawnPetal();
+}
+// Loading Screen
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        document.getElementById('loading-screen').classList.add('hide');
+    }, 1800);
+});
+
+// Petals
+function startPetals() {
+    const petals = ['🌸', '🌷', '✿', '❀'];
+    function spawnPetal() {
+        const p = document.createElement('div');
+        p.classList.add('petal');
+        p.textContent = petals[Math.floor(Math.random() * petals.length)];
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.fontSize = (0.7 + Math.random() * 0.8) + 'rem';
+        const dur = 7 + Math.random() * 8;
+        p.style.animationDuration = dur + 's';
+        p.style.animationDelay = Math.random() * 3 + 's';
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), (dur + 4) * 1000);
+    }
+    setInterval(spawnPetal, 1000);
+    for (let i = 0; i < 5; i++) spawnPetal();
+}
+
+// Memory Vault
+const PASSWORD = "1209082e";
+
+function openVault() {
+    document.getElementById('vault-overlay').classList.add('open');
+    document.getElementById('vault-password-screen').style.display = 'flex';
+    document.getElementById('vault-content').style.display = 'none';
+    document.getElementById('vault-input').value = '';
+    document.getElementById('vault-error').textContent = '';
+    setTimeout(() => document.getElementById('vault-input').focus(), 300);
+}
+
+function closeVault() {
+    document.getElementById('vault-overlay').classList.remove('open');
+}
+
+function checkPassword() {
+    const input = document.getElementById('vault-input').value;
+    const error = document.getElementById('vault-error');
+    if (input === PASSWORD) {
+        document.getElementById('vault-password-screen').style.display = 'none';
+        document.getElementById('vault-content').style.display = 'block';
+        document.getElementById('vault-overlay').querySelector('.vault-lock-icon').textContent = '🔓';
+    } else {
+        error.textContent = 'kode salah, coba lagi. 🌸';
+        document.getElementById('vault-input').value = '';
+        document.getElementById('vault-input').focus();
+    }
 }
