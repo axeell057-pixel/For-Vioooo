@@ -18,7 +18,7 @@ body {
         url('https://www.transparenttextures.com/patterns/handmade-paper.png');
    min-height: 100vh;
     width: 100vw;
-    overflow: auto;
+    overflow: hidden;
    overscroll-behavior: none;
     font-family: 'Montserrat', sans-serif;
     perspective: 1200px;
@@ -603,8 +603,3 @@ p {
     font-size: 1.1rem;
     cursor: pointer;
     box-shadow: 0 4px 14px rgba(200, 100, 120, 0.25);
-.container {
-    width: 200vw;
-    height: 200vh;
-    position: relative;
-}
