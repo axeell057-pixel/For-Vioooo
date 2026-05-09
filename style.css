@@ -406,3 +406,199 @@ p {
     0%   { transform: translateY(-40px) rotate(0deg); opacity: 0.6; }
     100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
 }
+/* Loading Screen */
+#loading-screen {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-pink);
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    transition: opacity 0.8s ease;
+}
+
+#loading-screen.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-flower {
+    font-size: 2.8rem;
+    animation: bloom 1.4s ease infinite alternate;
+}
+
+@keyframes bloom {
+    from { transform: scale(0.8); opacity: 0.5; }
+    to   { transform: scale(1.2); opacity: 1; }
+}
+
+.loading-text {
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    color: #b08090;
+    letter-spacing: 1px;
+}
+
+/* Petals */
+.petal {
+    position: fixed;
+    pointer-events: none;
+    opacity: 0;
+    animation: petalFall linear infinite;
+    z-index: 5;
+}
+
+@keyframes petalFall {
+    0%   { transform: translateY(-40px) rotate(0deg); opacity: 0.6; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+/* Vault Button */
+#vault-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50px;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    z-index: 2000;
+    box-shadow: 0 6px 20px rgba(200, 100, 120, 0.12);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#vault-btn.visible {
+    opacity: 1;
+    pointer-events: all;
+    transition: opacity 0.6s ease, transform 0.2s ease;
+}
+
+#vault-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(200, 100, 120, 0.2);
+}
+
+.vault-btn-lock { font-size: 1rem; }
+
+.vault-btn-text {
+    font-family: 'Caveat', cursive;
+    font-size: 1rem;
+    color: #a07080;
+}
+
+/* Vault Overlay */
+#vault-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(200, 100, 120, 0.15);
+    backdrop-filter: blur(6px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+#vault-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.vault-modal {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 24px;
+    padding: 40px 36px;
+    width: 360px;
+    max-width: 90vw;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(200, 100, 120, 0.15);
+    position: relative;
+}
+
+.vault-close {
+    position: absolute;
+    top: 14px; right: 16px;
+    border: none;
+    background: none;
+    font-size: 1rem;
+    color: #c0a0a8;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 50%;
+}
+
+.vault-close:hover { background: #fce8ec; }
+
+.vault-lock-icon { font-size: 2.5rem; margin-bottom: 8px; }
+
+.vault-title {
+    font-family: 'Caveat', cursive !important;
+    font-size: 2rem !important;
+    color: var(--text-dark) !important;
+    margin: 0 0 4px !important;
+}
+
+.vault-subtitle {
+    font-family: 'Shadows Into Light', cursive !important;
+    font-size: 0.95rem !important;
+    color: #b08090 !important;
+    margin-bottom: 24px !important;
+}
+
+#vault-password-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.vault-hint {
+    font-family: 'Indie Flower', cursive !important;
+    font-size: 1rem !important;
+    color: #a08090 !important;
+}
+
+#vault-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid #f4b8c3;
+    border-radius: 50px;
+    background: #fff9fb;
+    font-size: 1rem;
+    text-align: center;
+    outline: none;
+    color: var(--text-dark);
+    transition: border 0.2s;
+}
+
+#vault-input:focus { border-color: #e8909f; }
+
+.vault-error {
+    font-family: 'Indie Flower', cursive !important;
+    font-size: 0.9rem !important;
+    color: #e8909f !important;
+    min-height: 1.2em;
+}
+
+.vault-btn {
+    background: linear-gradient(135deg, var(--accent-pink), #f09aaa);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 28px;
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(200, 100, 120, 0.25);
