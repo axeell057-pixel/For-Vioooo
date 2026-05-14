@@ -619,3 +619,11 @@ p {
     height: 120px;
     object-fit: cover;
 }
+#vault-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 8px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
