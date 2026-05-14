@@ -624,6 +624,4 @@ p {
     grid-template-columns: 1fr 1fr;
     gap: 12px;
     padding: 8px;
-    max-height: 60vh;
-    overflow-y: auto;
 }
