@@ -622,12 +622,16 @@ p {
 }
 
 #vault-content {
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    display: none;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 18px;
     width: 100%;
     box-sizing: border-box;
     padding: 8px;
+}
+
+#vault-content.show {
+    display: grid;
 }
 
 .memory-item {
