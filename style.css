@@ -406,9 +406,17 @@ p {
 }
 
 @keyframes petalFall {
-    0%   { transform: translateY(-40px) rotate(0deg); opacity: 0.6; }
-    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    0% {
+        transform: translateY(-40px) rotate(0deg);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
 }
+
 /* Loading Screen */
 #loading-screen {
     position: fixed;
