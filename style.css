@@ -397,6 +397,7 @@ p {
 /* Petals jatuh */
 .petal {
     position: fixed;
+    top: -40px;
     pointer-events: none;
     font-size: 1.2rem;
     opacity: 0;
