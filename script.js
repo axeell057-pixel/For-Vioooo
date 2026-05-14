@@ -181,14 +181,20 @@ const PASSWORD = "1209082e";
 function openVault() {
     document.getElementById('vault-overlay').classList.add('open');
     document.getElementById('vault-password-screen').style.display = 'flex';
-    document.getElementById('vault-content').style.display = 'none';
+    document.getElementById('vault-content').classList.remove('show');
     document.getElementById('vault-input').value = '';
     document.getElementById('vault-error').textContent = '';
+    document.getElementById('vault-overlay').querySelector('.vault-lock-icon').textContent = '🔒';
     setTimeout(() => document.getElementById('vault-input').focus(), 300);
 }
 
 function closeVault() {
     document.getElementById('vault-overlay').classList.remove('open');
+    document.getElementById('vault-password-screen').style.display = 'flex';
+    document.getElementById('vault-content').classList.remove('show');
+    document.getElementById('vault-input').value = '';
+    document.getElementById('vault-error').textContent = '';
+    document.getElementById('vault-overlay').querySelector('.vault-lock-icon').textContent = '🔒';
 }
 
 function checkPassword() {
@@ -196,7 +202,7 @@ function checkPassword() {
     const error = document.getElementById('vault-error');
     if (input === PASSWORD) {
         document.getElementById('vault-password-screen').style.display = 'none';
-        document.getElementById('vault-content').style.display = 'block';
+        document.getElementById('vault-content').classList.add('show');
         document.getElementById('vault-overlay').querySelector('.vault-lock-icon').textContent = '🔓';
     } else {
         error.textContent = 'kode salah, coba lagi. 🌸';
