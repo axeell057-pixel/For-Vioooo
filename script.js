@@ -139,6 +139,7 @@ function startPetals() {
         p.classList.add('petal');
         p.textContent = petals[Math.floor(Math.random() * petals.length)];
         p.style.left = Math.random() * 100 + 'vw';
+        p.style.top = '-40px';
         p.style.fontSize = (0.7 + Math.random() * 0.8) + 'rem';
         const dur = 7 + Math.random() * 8;
         p.style.animationDuration = dur + 's';
