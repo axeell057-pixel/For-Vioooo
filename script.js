@@ -177,7 +177,7 @@ function startPetals() {
 }
 
 // Memory Vault
-const PASSWORD = "1209082e";
+const PASSWORD = "160326";
 
 function openVault() {
     document.getElementById('vault-overlay').classList.add('open');
