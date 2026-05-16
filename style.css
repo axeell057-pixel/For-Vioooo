@@ -808,3 +808,33 @@ p {
         line-height: 1.25;
     }
 }
+
+/*tambah*/
+
+@media (max-width: 768px) {
+    body {
+        overflow: auto;
+    }
+
+    .vault-modal {
+        width: calc(100vw - 24px);
+        max-width: calc(100vw - 24px);
+        max-height: 86vh;
+        padding: 28px 16px;
+        border-radius: 20px;
+    }
+
+    #vault-content.show {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .memory-item img {
+        height: 145px;
+    }
+
+    .memory-caption {
+        font-size: 0.78rem;
+        line-height: 1.25;
+    }
+}
