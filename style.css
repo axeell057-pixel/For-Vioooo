@@ -838,3 +838,55 @@ p {
         line-height: 1.25;
     }
 }
+
+@media (max-width: 768px) {
+    body {
+        width: 100vw;
+        min-height: 100vh;
+        overflow: auto;
+    }
+
+    .container {
+        width: 1000px;
+        min-height: 1400px;
+        position: relative;
+    }
+
+    .music-player {
+        position: fixed;
+        left: 12px;
+        bottom: 12px;
+        transform: scale(0.9);
+        transform-origin: bottom left;
+    }
+
+    #vault-btn {
+        position: fixed;
+        right: 12px;
+        bottom: 12px;
+        transform: scale(0.9);
+        transform-origin: bottom right;
+    }
+
+    .vault-modal {
+        width: calc(100vw - 24px);
+        max-width: calc(100vw - 24px);
+        max-height: 86vh;
+        padding: 28px 16px;
+        border-radius: 20px;
+    }
+
+    #vault-content.show {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .memory-item img {
+        height: 145px;
+    }
+
+    .memory-caption {
+        font-size: 0.78rem;
+        line-height: 1.25;
+    }
+}
