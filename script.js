@@ -213,12 +213,14 @@ function checkPassword() {
 }
 
 function togglePreview() {
-    const container = document.querySelector('.container');
+    const body = document.body;
     const btn = document.getElementById('preview-btn');
 
-    container.classList.toggle('preview-mode');
+    if (!btn) return;
 
-    if (container.classList.contains('preview-mode')) {
+    body.classList.toggle('previewing');
+
+    if (body.classList.contains('previewing')) {
         btn.textContent = 'read';
     } else {
         btn.textContent = 'preview';
