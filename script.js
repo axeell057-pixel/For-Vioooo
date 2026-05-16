@@ -211,3 +211,16 @@ function checkPassword() {
         document.getElementById('vault-input').focus();
     }
 }
+
+function togglePreview() {
+    const container = document.querySelector('.container');
+    const btn = document.getElementById('preview-btn');
+
+    container.classList.toggle('preview-mode');
+
+    if (container.classList.contains('preview-mode')) {
+        btn.textContent = 'read';
+    } else {
+        btn.textContent = 'preview';
+    }
+}
