@@ -935,7 +935,7 @@ p {
         cursor: pointer;
     }
 
-    .container.preview-mode {
+    body.previewing .container {
         transform: scale(0.55) !important;
         transform-origin: top left !important;
     }
