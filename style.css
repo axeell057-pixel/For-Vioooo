@@ -910,3 +910,33 @@ p {
         overflow: visible !important;
     }
 }
+
+#preview-btn {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    #preview-btn {
+        position: fixed;
+        top: 14px;
+        right: 14px;
+        z-index: 2500;
+        display: block;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        border-radius: 50px;
+        padding: 8px 14px;
+        background: rgba(255, 255, 255, 0.78);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        color: #a07080;
+        font-family: 'Caveat', cursive;
+        font-size: 1rem;
+        box-shadow: 0 6px 20px rgba(200, 100, 120, 0.12);
+        cursor: pointer;
+    }
+
+    .container.preview-mode {
+        transform: scale(0.55) !important;
+        transform-origin: top left !important;
+    }
+}
