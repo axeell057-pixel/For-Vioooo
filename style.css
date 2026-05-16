@@ -630,6 +630,8 @@ p {
         url('https://www.transparenttextures.com/patterns/handmade-paper.png');
 }
 
+/*Animasi Vault*/
+
 #vault-content {
     display: none;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -663,4 +665,146 @@ p {
     color: var(--text-dark);
     text-align: center;
     margin-top: 8px;
+}
+
+#vault-content {
+    display: none;
+}
+
+#vault-content.show {
+    display: grid;
+    animation: vaultFadeIn 0.45s ease both;
+}
+
+#vault-content.show .memory-item {
+    animation: memoryPop 0.5s ease both;
+}
+
+#vault-content.show .memory-item:nth-child(2) {
+    animation-delay: 0.08s;
+}
+
+#vault-content.show .memory-item:nth-child(3) {
+    animation-delay: 0.16s;
+}
+
+#vault-content.show .memory-item:nth-child(4) {
+    animation-delay: 0.24s;
+}
+
+@keyframes vaultFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes memoryPop {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Mobile Menu */
+
+@media (max-width: 768px) {
+    body {
+        width: 100vw;
+        height: 100vh;
+        overflow: auto;
+        overscroll-behavior: auto;
+        perspective: none;
+    }
+
+    .container {
+        width: 1100px;
+        height: 760px;
+        min-height: 760px;
+        position: relative;
+        transform: scale(0.55);
+        transform-origin: top left;
+    }
+
+    .paper {
+        position: absolute;
+    }
+
+    .note {
+        width: 260px;
+        padding: 34px 22px 26px;
+    }
+
+    .polaroid-drag {
+        width: 220px;
+    }
+
+    .polaroid-drag img {
+        height: 165px;
+    }
+
+    .polaroid-mini {
+        width: 120px;
+    }
+
+    .polaroid-mini img {
+        height: 100px;
+    }
+
+    .pinned-card {
+        width: 220px;
+        top: 28px;
+        right: 28px;
+    }
+
+    .pinned-card img {
+        height: 165px;
+    }
+
+    .music-player {
+        left: 12px;
+        bottom: 12px;
+        max-width: calc(100vw - 100px);
+        padding: 8px 12px;
+    }
+
+    #vault-btn {
+        right: 12px;
+        bottom: 12px;
+        padding: 10px 12px;
+    }
+
+    .vault-btn-text {
+        display: none;
+    }
+
+    .vault-modal {
+        width: calc(100vw - 24px);
+        max-width: calc(100vw - 24px);
+        max-height: 86vh;
+        padding: 28px 18px;
+        border-radius: 20px;
+    }
+
+    #vault-content.show {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .memory-item img {
+        height: 150px;
+    }
+
+    .memory-caption {
+        font-size: 0.8rem;
+        line-height: 1.25;
+    }
 }
