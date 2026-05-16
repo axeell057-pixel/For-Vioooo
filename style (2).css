@@ -1,0 +1,810 @@
+/* ============================================
+   VARIABLES & RESET
+   ============================================ */
+:root {
+    --bg-pink: #fce8ec;          /* pink kalem utama */
+    --bg-pink-2: #f9d8df;        /* pink sedikit lebih gelap */
+    --accent-pink: #f4b8c3;      /* aksen */
+    --paper-cream: #fdfcf0;
+    --text-dark: #3e3e3e;
+    --pin-red: #e53935;
+}
+
+body {
+    background-color: var(--bg-pink);
+    background-image:
+        radial-gradient(circle at 15% 15%, #fff5f7 0%, transparent 40%),
+        radial-gradient(circle at 85% 80%, #fde0e6 0%, transparent 35%),
+        url('https://www.transparenttextures.com/patterns/handmade-paper.png');
+   background-attachment: fixed;
+   height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+   overscroll-behavior: none;
+    font-family: 'Montserrat', sans-serif;
+    perspective: 1200px;
+}
+
+
+/* ============================================
+   AMPLOP (ENVELOPE)
+   ============================================ */
+#envelope-wrapper {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-pink);
+    background-image:
+        radial-gradient(circle at 20% 20%, #fff5f7 0%, transparent 40%),
+        url('https://www.transparenttextures.com/patterns/handmade-paper.png');
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.8s ease, transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+#envelope-wrapper.open {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(1.5) translateY(-30%);
+}
+
+.envelope {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background: var(--bg-pink-2);
+    box-shadow: 0 20px 60px rgba(200, 100, 120, 0.15);
+}
+
+.flap {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-top: 120px solid var(--accent-pink);
+    transform-origin: top center;
+    transition: transform 0.7s ease;
+    z-index: 3;
+}
+
+#envelope-wrapper.open .flap {
+    transform: rotateX(180deg);
+}
+
+.pocket {
+    position: absolute;
+    bottom: 0;
+    width: 300px;
+    height: 120px;
+    background: var(--bg-pink-2);
+    z-index: 4;
+}
+
+.envelope-text {
+    position: absolute;
+    bottom: 35px;
+    width: 100%;
+    text-align: center;
+    font-family: 'Caveat', cursive;
+    font-size: 1.6rem;
+    color: #a07080;
+    z-index: 5;
+    letter-spacing: 0.5px;
+}
+
+
+/* ============================================
+   KERTAS & CATATAN
+   ============================================ */
+.paper {
+    position: absolute;
+    cursor: grab;
+    user-select: none;
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+.paper:active {
+    cursor: grabbing;
+}
+
+.paper.loaded {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.8s ease, transform 0.9s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+}
+
+/* Ukuran & style dasar catatan */
+.note {
+    width: 280px;
+    padding: 40px 25px 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.type-1 { background: var(--paper-cream); }
+.type-2 { background: #fff9f9; border-bottom: 3px solid #fce4ec; }
+.type-3 { background: #e3f2fd; }
+
+.lined {
+    background-image: linear-gradient(#e1d9c1 1px, transparent 1px);
+    background-size: 100% 30px;
+    line-height: 30px;
+}
+
+.grid {
+    background-image:
+        linear-gradient(rgba(171, 206, 212, 0.3) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(171, 206, 212, 0.3) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* Polaroid */
+.polaroid-drag {
+    background: #fff;
+    padding: 12px 12px 50px 12px;
+    width: 240px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.07);
+}
+
+.polaroid-drag img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* Kartu pinned */
+.pinned-card {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    width: 240px;
+    background: #fff;
+    padding: 12px 12px 50px 12px;
+    transform: rotate(5deg) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+}
+
+/* Foto dalam pinned-card sama ukurannya kayak polaroid */
+.pinned-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* Polaroid mini buat foto bunga dekorasi */
+.polaroid-mini {
+    background: #fff;
+    padding: 8px 8px 36px 8px;
+    width: 130px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+}
+
+.polaroid-mini img {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+}
+
+/* Pin merah */
+.pin {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 24px;
+    background: radial-gradient(circle at 30% 30%, #ff5252, var(--pin-red));
+    border-radius: 50%;
+    z-index: 1001;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+/* Selotip */
+.tape {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(2px);
+}
+
+/* Tanda tangan */
+.sign {
+    text-align: right;
+    font-family: 'Caveat', cursive;
+    font-size: 1.4rem;
+    margin-top: 10px;
+}
+
+
+/* ============================================
+   LAYERING (Z-INDEX)
+   ============================================ */
+.deco-layer  { z-index: 10; }
+.paper-layer { z-index: 100; }
+.fixed-layer { z-index: 1000; }
+
+
+/* ============================================
+   TIPOGRAFI
+   ============================================ */
+h2 {
+    font-family: 'Caveat', cursive;
+    font-size: 2rem;
+    color: var(--text-dark);
+    margin: 0 0 8px;
+}
+
+p {
+    font-family: 'Indie Flower', cursive;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.caption {
+    font-family: 'Shadows Into Light', cursive;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #999;
+}
+
+
+/* ============================================
+   MUSIC PLAYER
+   ============================================ */
+.music-player {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 10px 18px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 2000;
+    box-shadow: 0 6px 20px rgba(200, 100, 120, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Ikon note musik */
+.album-art {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--accent-pink), var(--bg-pink-2));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: #c06070;
+    animation: spin 4s linear infinite;
+    animation-play-state: paused;
+}
+
+.music-player.playing .album-art {
+    animation-play-state: running;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+.track-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.track-name {
+    font-family: 'Caveat', cursive;
+    font-size: 1rem;
+    color: var(--text-dark);
+    line-height: 1;
+}
+
+.track-artist {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    color: #aaa;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+/* Tombol play/pause */
+.play-btn {
+    border: none;
+    background: linear-gradient(135deg, var(--accent-pink), #f09aaa);
+    color: #fff;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 8px rgba(200, 100, 120, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    padding: 0;
+}
+
+.play-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 14px rgba(200, 100, 120, 0.35);
+}
+
+.play-btn:active {
+    transform: scale(0.95);
+}
+
+/* Loading Screen */
+#loading-screen {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-pink);
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    transition: opacity 0.8s ease;
+}
+
+#loading-screen.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-flower {
+    font-size: 2.5rem;
+    animation: bloom 1.5s ease infinite alternate;
+}
+
+@keyframes bloom {
+    from { transform: scale(0.8); opacity: 0.5; }
+    to   { transform: scale(1.2); opacity: 1; }
+}
+
+.loading-text {
+    font-family: 'Caveat', cursive;
+    font-size: 1.4rem;
+    color: #b08090;
+    letter-spacing: 1px;
+}
+
+/* Hover effect catatan */
+.note:hover {
+    box-shadow: 0 16px 40px rgba(200, 100, 120, 0.15);
+    filter: brightness(1.02);
+    transition: box-shadow 0.3s ease, filter 0.3s ease;
+}
+
+/* Petals jatuh */
+.petal {
+    position: fixed;
+    top: -40px;
+    pointer-events: none;
+    font-size: 1.2rem;
+    opacity: 0;
+    animation: petalFall linear infinite;
+    z-index: 5;
+}
+
+@keyframes petalFall {
+    0% {
+        transform: translateY(-40px) rotate(0deg);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Loading Screen */
+#loading-screen {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-pink);
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    transition: opacity 0.8s ease;
+}
+
+#loading-screen.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-flower {
+    font-size: 2.8rem;
+    animation: bloom 1.4s ease infinite alternate;
+}
+
+@keyframes bloom {
+    from { transform: scale(0.8); opacity: 0.5; }
+    to   { transform: scale(1.2); opacity: 1; }
+}
+
+.loading-text {
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    color: #b08090;
+    letter-spacing: 1px;
+}
+
+/* Petals */
+.petal {
+    position: fixed;
+    pointer-events: none;
+    opacity: 0;
+    animation: petalFall linear infinite;
+    z-index: 5;
+}
+
+@keyframes petalFall {
+    0%   { transform: translateY(-40px) rotate(0deg); opacity: 0.6; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+/* Vault Button */
+#vault-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50px;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    z-index: 2000;
+    box-shadow: 0 6px 20px rgba(200, 100, 120, 0.12);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#vault-btn.visible {
+    opacity: 1;
+    pointer-events: all;
+    transition: opacity 0.6s ease, transform 0.2s ease;
+}
+
+#vault-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(200, 100, 120, 0.2);
+}
+
+.vault-btn-lock { font-size: 1rem; }
+
+.vault-btn-text {
+    font-family: 'Caveat', cursive;
+    font-size: 1rem;
+    color: #a07080;
+}
+
+/* Vault Overlay */
+#vault-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(200, 100, 120, 0.15);
+    backdrop-filter: blur(6px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+#vault-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.vault-modal {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 24px;
+    padding: 32px 28px;
+    width: 760px;
+    max-width: 92vw;
+    max-height: 82vh;
+    overflow-y: auto;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(200, 100, 120, 0.15);
+    position: relative;
+    box-sizing: border-box;
+}
+
+
+.vault-close {
+    position: absolute;
+    top: 14px; right: 16px;
+    border: none;
+    background: none;
+    font-size: 1rem;
+    color: #c0a0a8;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 50%;
+}
+
+.vault-close:hover { background: #fce8ec; }
+
+.vault-lock-icon { font-size: 2.5rem; margin-bottom: 8px; }
+
+.vault-title {
+    font-family: 'Caveat', cursive !important;
+    font-size: 2rem !important;
+    color: var(--text-dark) !important;
+    margin: 0 0 4px !important;
+}
+
+.vault-subtitle {
+    font-family: 'Shadows Into Light', cursive !important;
+    font-size: 0.95rem !important;
+    color: #b08090 !important;
+    margin-bottom: 24px !important;
+}
+
+#vault-password-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.vault-hint {
+    font-family: 'Indie Flower', cursive !important;
+    font-size: 1rem !important;
+    color: #a08090 !important;
+}
+
+#vault-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid #f4b8c3;
+    border-radius: 50px;
+    background: #fff9fb;
+    font-size: 1rem;
+    text-align: center;
+    outline: none;
+    color: var(--text-dark);
+    transition: border 0.2s;
+}
+
+#vault-input:focus { border-color: #e8909f; }
+
+.vault-error {
+    font-family: 'Indie Flower', cursive !important;
+    font-size: 0.9rem !important;
+    color: #e8909f !important;
+    min-height: 1.2em;
+}
+
+.vault-btn {
+    background: linear-gradient(135deg, var(--accent-pink), #f09aaa);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 28px;
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(200, 100, 120, 0.25);
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    background-color: var(--bg-pink);
+    background-image:
+        radial-gradient(circle at 15% 15%, #fff5f7 0%, transparent 40%),
+        radial-gradient(circle at 85% 80%, #fde0e6 0%, transparent 35%),
+        url('https://www.transparenttextures.com/patterns/handmade-paper.png');
+}
+
+/*Animasi Vault*/
+
+#vault-content {
+    display: none;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+}
+
+#vault-content.show {
+    display: grid;
+}
+
+.memory-item {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.memory-item img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    display: block;
+    border-radius: 14px;
+}
+
+.memory-caption {
+    font-family: 'Indie Flower', cursive;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    text-align: center;
+    margin-top: 8px;
+}
+
+#vault-content {
+    display: none;
+}
+
+#vault-content.show {
+    display: grid;
+    animation: vaultFadeIn 0.45s ease both;
+}
+
+#vault-content.show .memory-item {
+    animation: memoryPop 0.5s ease both;
+}
+
+#vault-content.show .memory-item:nth-child(2) {
+    animation-delay: 0.08s;
+}
+
+#vault-content.show .memory-item:nth-child(3) {
+    animation-delay: 0.16s;
+}
+
+#vault-content.show .memory-item:nth-child(4) {
+    animation-delay: 0.24s;
+}
+
+@keyframes vaultFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes memoryPop {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Mobile Menu */
+
+@media (max-width: 768px) {
+    body {
+        width: 100vw;
+        height: 100vh;
+        overflow: auto;
+        overscroll-behavior: auto;
+        perspective: none;
+    }
+
+    .container {
+        width: 1100px;
+        height: 760px;
+        min-height: 760px;
+        position: relative;
+        transform: scale(0.55);
+        transform-origin: top left;
+    }
+
+    .paper {
+        position: absolute;
+    }
+
+    .note {
+        width: 260px;
+        padding: 34px 22px 26px;
+    }
+
+    .polaroid-drag {
+        width: 220px;
+    }
+
+    .polaroid-drag img {
+        height: 165px;
+    }
+
+    .polaroid-mini {
+        width: 120px;
+    }
+
+    .polaroid-mini img {
+        height: 100px;
+    }
+
+    .pinned-card {
+        width: 220px;
+        top: 28px;
+        right: 28px;
+    }
+
+    .pinned-card img {
+        height: 165px;
+    }
+
+    .music-player {
+        left: 12px;
+        bottom: 12px;
+        max-width: calc(100vw - 100px);
+        padding: 8px 12px;
+    }
+
+    #vault-btn {
+        right: 12px;
+        bottom: 12px;
+        padding: 10px 12px;
+    }
+
+    .vault-btn-text {
+        display: none;
+    }
+
+    .vault-modal {
+        width: calc(100vw - 24px);
+        max-width: calc(100vw - 24px);
+        max-height: 86vh;
+        padding: 28px 18px;
+        border-radius: 20px;
+    }
+
+    #vault-content.show {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .memory-item img {
+        height: 150px;
+    }
+
+    .memory-caption {
+        font-size: 0.8rem;
+        line-height: 1.25;
+    }
+}
